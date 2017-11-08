@@ -1,2 +1,2 @@
 # SoapVersion
-A app too add a sort of version control to soap calls.
+A app that gives you a basic version history of third party soap servers.
