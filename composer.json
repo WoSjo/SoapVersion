@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "wosjo/soap-version",
+    "description": "Version control dashboard for your soap calls.",
+    "keywords": ["soap", "version", "control", "dashboard", "modules"],
     "license": "MIT",
     "type": "project",
     "require": {
