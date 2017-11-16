@@ -1,24 +1,39 @@
 # Modules
 
-## DI
+## Dashboard views
 
-The di module allows users to manage bindings between the complete application.
-Out of the box we will use laravel's.
+In the dashboard module several entities are configured and have crud actions built in.  
 
-## Router
+Entities :
+- users
+- groups
 
-The router module should be able to extend main router package that we can 
-provide of information using a service class that implements a `BaseRouterInterface`.
+Hooks:
+- create
+- update
+- delete
 
-## Validation
+## Soap views
 
-The validation package will check if the input that has been given in is correct and will return it.
-It will also return the errors.
+The soap views exist out of the server crud and the function crud.
+It should be able to hook into the actions when servers and functions are made.
 
-## View engine.
+Entities: 
+- servers
+- functions
 
-This will implement an existing view engine but put a service and interface between the modules and repository.
+Hooks:
+- create
+- update
+- delete 
 
-### More to come.
+## Version view
 
-While building the application the list will be expanded with more modules.
+The version view allows the admin to setup versioning types to display.
+
+Entities:
+- versions
+
+Hooks: 
+- create
+- delete
