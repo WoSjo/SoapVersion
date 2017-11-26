@@ -8,6 +8,9 @@ use SoapVersion\Models\Dashboard\SoapServer;
 
 class SoapServersController extends Controller
 {
+    /**
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $soapServers = SoapServer::byUserId();
@@ -15,6 +18,9 @@ class SoapServersController extends Controller
         return view('dashboard.soap_servers.index', compact('soapServers'));
     }
 
+    /**
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         return view('dashboard.soap_servers.create');
@@ -25,11 +31,19 @@ class SoapServersController extends Controller
         // Create new soap server
     }
 
+    /**
+     * @param SoapServer $soapServer
+     * @return \Illuminate\View\View
+     */
     public function show(SoapServer $soapServer)
     {
         return view('dashboard.soap_servers.show', compact('soapServer'));
     }
 
+    /**
+     * @param SoapServer $soapServer
+     * @return \Illuminate\View\View
+     */
     public function edit(SoapServer $soapServer)
     {
         return view('dashboard.soap_servers.edit', compact('soapServer'));
