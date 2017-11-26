@@ -4,6 +4,7 @@ namespace SoapVersion\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use Sven\ArtisanView\ServiceProvider as ArtisanViewServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if ($this->app->environment() !== 'production') {
+            $this->app->register(ArtisanViewServiceProvider::class);
+        }
     }
 }
