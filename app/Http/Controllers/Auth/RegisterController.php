@@ -2,7 +2,7 @@
 
 namespace SoapVersion\Http\Controllers\Auth;
 
-use SoapVersion\User;
+use SoapVersion\Models\User;
 use SoapVersion\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;

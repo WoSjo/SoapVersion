@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => SoapVersion\User::class,
+            'model' => SoapVersion\Models\User::class,
         ],
 
         // 'users' => [
