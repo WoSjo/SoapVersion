@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace SoapVersion\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
