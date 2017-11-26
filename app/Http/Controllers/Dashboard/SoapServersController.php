@@ -1,9 +1,9 @@
 <?php
 
-namespace SoapVersion\Http\Controllers;
+namespace SoapVersion\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
-use SoapVersion\Models\Dashboard\SoapServers;
+use SoapVersion\Models\Dashboard\SoapServer;
 
 class SoapServersController extends Controller
 {
@@ -22,22 +22,22 @@ class SoapServersController extends Controller
         //
     }
 
-    public function show(SoapServers $soapServers)
+    public function show(SoapServer $soapServers)
     {
         //
     }
 
-    public function edit(SoapServers $soapServers)
+    public function edit(SoapServer $soapServers)
     {
         //
     }
 
-    public function update(Request $request, SoapServers $soapServers)
+    public function update(Request $request, SoapServer $soapServers)
     {
         //
     }
-    
-    public function destroy(SoapServers $soapServers)
+
+    public function destroy(SoapServer $soapServers)
     {
         //
     }

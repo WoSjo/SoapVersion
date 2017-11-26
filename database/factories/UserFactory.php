@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use SoapVersion\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(SoapVersion\User::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) {
     static $password;
 
     return [

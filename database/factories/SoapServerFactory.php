@@ -1,10 +1,10 @@
 <?php
 
 use Faker\Generator as Faker;
-use SoapVersion\Models\Dashboard\SoapServers;
+use SoapVersion\Models\Dashboard\SoapServer;
 use SoapVersion\Models\User;
 
-$factory->define(SoapServers::class, function (Faker $faker) {
+$factory->define(SoapServer::class, function (Faker $faker) {
     return [
         'user_id' => factory(User::class)->create(),
         'name' => $domainName = $faker->domainName,
