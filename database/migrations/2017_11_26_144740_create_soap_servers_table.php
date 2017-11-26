@@ -19,7 +19,7 @@ class CreateSoapServersTable extends Migration
             $table->string('name', '100');
             $table->string('slug')->unique();
             $table->string('host');
-            $table->string('port')->default('80');
+            $table->string('port')->nullable()->default('80');
             $table->timestamps();
             $table->softDeletes();
 
