@@ -42,6 +42,8 @@ class SoapServersController extends Controller
         $user = Auth::user();
         $soapServer = $user->soapServers()->create($request->all());
 
+        dd($soapServer);
+
         return redirect()->route('soap-servers.index')
             ->with('success', __('utility.created', [
                 'type' => trans_choice('soap_server.soap server', self::TRANSLATION_CHOICE),

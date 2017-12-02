@@ -12,15 +12,6 @@
 
 @include('form-components.text', [
     'type' => 'text',
-    'name' => 'slug',
-    'labelValue' => __('soap_server.slug'),
-    'labelClasses' => 'col-sm-1 control-label',
-    'divClasses' => 'col-sm-11',
-    'inputClasses' => 'form-control'
-])
-
-@include('form-components.text', [
-    'type' => 'text',
     'name' => 'host',
     'labelValue' => __('soap_server.host'),
     'labelClasses' => 'col-sm-1 control-label',
