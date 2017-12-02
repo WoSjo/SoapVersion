@@ -15,7 +15,7 @@ class CreateSoapServersTable extends Migration
     {
         Schema::create('soap_servers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->index();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('name', '100');
             $table->string('slug')->unique();
             $table->string('host');

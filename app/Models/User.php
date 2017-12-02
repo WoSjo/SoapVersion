@@ -29,4 +29,12 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function soapServers()
+    {
+        return $this->hasMany('soapServer');
+    }
 }

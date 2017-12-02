@@ -4,7 +4,6 @@ namespace SoapVersion\Models\Dashboard;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Crypt;
 use SoapVersion\Models\User;
 
 class SoapServer extends Model

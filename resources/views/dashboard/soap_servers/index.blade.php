@@ -19,12 +19,12 @@
                             {{ title_case(
                                 trans_choice(
                                     'soap_server.soap server',
-                                    $soapServers->count() === 0 ? 1 : 2
+                                    $translationChoice
                                 ) . ' ' . __('soap_server.for account')
                             ) }}
                         </span>
                         <span class="pull-right">
-                            <a href="{{ route('soap_servers.create') }}" class="btn btn-primary btn-xs">
+                            <a href="{{ route('soap-servers.create') }}" class="btn btn-primary btn-xs">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             </a>
                         </span>
@@ -50,7 +50,7 @@
                                         <td>{{ $soapServer->host }}</td>
                                         <td>{{ $soapServer->port }}</td>
                                         <td>
-                                            <a href="{{ route('soap_servers.edit', $soapServer) }}"
+                                            <a href="{{ route('soap-servers.edit', $soapServer) }}"
                                                class="btn btn-primary" role="button">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                             </a>
