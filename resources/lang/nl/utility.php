@@ -7,4 +7,5 @@ return [
     'new' => 'nieuwe :type',
     'new record' => 'nieuw record voor :type',
     'no records found' => 'geen records gevonden',
+    'update' => 'bewerk',
 ];

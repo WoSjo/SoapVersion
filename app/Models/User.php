@@ -4,6 +4,7 @@ namespace SoapVersion\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use SoapVersion\Models\Dashboard\Soap\Server;
 
 class User extends Authenticatable
 {
@@ -35,6 +36,6 @@ class User extends Authenticatable
      */
     public function soapServers()
     {
-        return $this->hasMany('soapServer');
+        return $this->hasMany(Server::class);
     }
 }

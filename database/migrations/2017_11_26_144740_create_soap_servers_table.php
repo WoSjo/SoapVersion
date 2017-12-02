@@ -13,13 +13,14 @@ class CreateSoapServersTable extends Migration
      */
     public function up()
     {
-        Schema::create('soap_servers', function (Blueprint $table) {
+        Schema::create('servers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('name', '100');
             $table->string('slug')->unique();
             $table->string('host');
             $table->string('port')->nullable()->default('80');
+            $table->string('type')->default('soap');
             $table->timestamps();
             $table->softDeletes();
 
@@ -34,6 +35,6 @@ class CreateSoapServersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('soap_servers');
+        Schema::dropIfExists('servers');
     }
 }

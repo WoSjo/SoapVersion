@@ -1,12 +1,12 @@
 <?php
 
-namespace SoapVersion\Models\Dashboard;
+namespace SoapVersion\Models\Dashboard\Soap;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use SoapVersion\Models\User;
 
-class SoapServer extends Model
+class Server extends Model
 {
     /** @var array */
     protected $fillable = [
@@ -30,14 +30,6 @@ class SoapServer extends Model
     ];
 
     /**
-     * @param string $slug
-     */
-    public function setSlugAttribute(string $slug): void
-    {
-        $this->attributes['slug'] = str_slug($slug);
-    }
-
-    /**
      * @param string $host
      */
     public function setHostAttribute(string $host): void
@@ -50,7 +42,7 @@ class SoapServer extends Model
      */
     public function getHostAttribute(): string
     {
-        return decrypt($this->host);
+        return decrypt($this->attributes['host']);
     }
 
     /**

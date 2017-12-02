@@ -177,7 +177,7 @@ return [
         // SoapVersion\Providers\BroadcastServiceProvider::class,
         SoapVersion\Providers\EventServiceProvider::class,
         SoapVersion\Providers\RouteServiceProvider::class,
-
+        SoapVersion\Providers\ModelObserverProvider::class,
     ],
 
     /*

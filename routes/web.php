@@ -7,6 +7,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::group(['namespace' => 'Dashboard', 'middleware' => 'auth'], function () {
-    Route::resource('soap-servers', 'SoapServersController');
+
+Route::group(['namespace' => 'Dashboard', 'prefix' => 'dashboard', 'middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'soap', 'as' => 'soap.'], function () {
+        Route::resource('servers', 'SoapServersController');
+    });
 });

@@ -4,7 +4,7 @@
     title_case(
         trans_choice(
             'soap_server.soap server',
-            $soapServers->count() === 0 ? 1 : 2
+            $servers->count() === 0 ? 1 : 2
         ) . ' ' . __('soap_server.for account')
     )
 )
@@ -19,12 +19,12 @@
                             {{ title_case(
                                 trans_choice(
                                     'soap_server.soap server',
-                                    $translationChoice
+                                    $servers->count()
                                 ) . ' ' . __('soap_server.for account')
                             ) }}
                         </span>
                         <span class="pull-right">
-                            <a href="{{ route('soap-servers.create') }}" class="btn btn-primary btn-xs">
+                            <a href="{{ route('soap.servers.create') }}" class="btn btn-primary btn-xs">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             </a>
                         </span>
@@ -43,15 +43,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @forelse($soapServers as $soapServer)
+                                @forelse($servers as $server)
                                     <tr>
-                                        <td>{{ $soapServer->name }}</td>
-                                        <td>{{ $soapServer->slug }}</td>
-                                        <td>{{ $soapServer->host }}</td>
-                                        <td>{{ $soapServer->port }}</td>
+                                        <td>{{ $server->name }}</td>
+                                        <td>{{ $server->slug }}</td>
+                                        <td>{{ $server->host }}</td>
+                                        <td>{{ $server->port }}</td>
                                         <td>
-                                            <a href="{{ route('soap-servers.edit', $soapServer) }}"
-                                               class="btn btn-primary" role="button">
+                                            <a href="{{ route('soap.servers.edit', $server) }}"
+                                               class="btn btn-primary pull-right" role="button">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                             </a>
                                         </td>

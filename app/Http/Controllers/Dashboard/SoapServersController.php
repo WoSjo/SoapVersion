@@ -2,15 +2,13 @@
 
 namespace SoapVersion\Http\Controllers\Dashboard;
 
-use Collective\Html\HtmlServiceProvider;
 use Form;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use SoapVersion\Http\Controllers\Controller;
-use SoapVersion\Http\Requests\Dashboard\SoapServers\StoreRequest;
-use SoapVersion\Models\Dashboard\SoapServer;
+use SoapVersion\Http\Requests\Dashboard\Soap\Server\StoreRequest;
+use SoapVersion\Models\Dashboard\Soap\Server;
 
 class SoapServersController extends Controller
 {
@@ -21,10 +19,10 @@ class SoapServersController extends Controller
      */
     public function index()
     {
-        $soapServers = SoapServer::byUserId();
+        $servers = Server::byUserId();
         $translationChoice = self::TRANSLATION_CHOICE;
 
-        return view('dashboard.soap_servers.index', compact('soapServers', 'translationChoice'));
+        return view('dashboard.servers.index', compact('servers', 'translationChoice'));
     }
 
     /**
@@ -34,48 +32,57 @@ class SoapServersController extends Controller
     {
         $translationChoice = self::TRANSLATION_CHOICE;
 
-        return view('dashboard.soap_servers.create', compact('translationChoice', 'formBuilder'));
+        return view('dashboard.soap.servers.create', compact('translationChoice', 'formBuilder'));
     }
 
     public function store(StoreRequest $request)
     {
-        $user = Auth::user();
-        $soapServer = $user->soapServers()->create($request->all());
+        $server = Auth::user()->soapServers()->create($request->all());
 
-        dd($soapServer);
-
-        return redirect()->route('soap-servers.index')
+        return redirect()->route('soap.servers.index')
             ->with('success', __('utility.created', [
                 'type' => trans_choice('soap_server.soap server', self::TRANSLATION_CHOICE),
                 'identifier' => 'id',
-                'value' => $soapServer->id,
+                'value' => $server->id,
             ]));
     }
 
     /**
-     * @param SoapServer $soapServer
+     * @param Server $soapServer
      * @return \Illuminate\View\View
      */
-    public function show(SoapServer $soapServer)
+    public function show(Server $soapServer)
     {
-        return view('dashboard.soap_servers.show', compact('soapServer'));
+        return view('dashboard.soap.servers.show', compact('soapServer'));
     }
 
     /**
-     * @param SoapServer $soapServer
+     * @param Server $server
      * @return \Illuminate\View\View
      */
-    public function edit(SoapServer $soapServer)
+    public function edit(Server $server)
     {
-        return view('dashboard.soap_servers.edit', compact('soapServer'));
+        return view('dashboard.soap.servers.edit', compact('server'));
     }
 
-    public function update(Request $request, SoapServer $soapServers)
+    /**
+     * @param Request $request
+     * @param Server $server
+     * @return RedirectResponse
+     */
+    public function update(Request $request, Server $server): RedirectResponse
     {
-        //
+        $server->update($request->all());
+
+        return redirect()->route('soap.servers.index')
+            ->with('success', __('utility.updated', [
+                'type' => trans_choice('soap_server.soap server', self::TRANSLATION_CHOICE),
+                'identifier' => 'id',
+                'value' => $server->id,
+            ]));
     }
 
-    public function destroy(SoapServer $soapServers)
+    public function destroy(Server $soapServers)
     {
         //
     }

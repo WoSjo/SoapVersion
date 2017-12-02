@@ -32,11 +32,10 @@
     <div class="col-sm-offset-1 col-sm-11">
         {{ $form->submit(
             __('utility.create') . ' ' . __('utility.new', [
-                'type' => trans_choice('soap_server.soap server', $translationChoice)
+                'type' => trans_choice('soap_server.soap server', 1)
             ]),
             ['class' => 'btn btn-default'])
         }}
     </div>
 </div>
-
 {{ $form->close() }}

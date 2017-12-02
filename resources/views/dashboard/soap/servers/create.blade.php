@@ -25,15 +25,15 @@
                             ) }}
                         </span>
                         <span class="pull-right">
-                            <a href="{{ route('soap-servers.index') }}" class="btn btn-primary btn-xs">
+                            <a href="{{ route('soap.servers.index') }}" class="btn btn-primary btn-xs">
                                 <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                             </a>
                         </span>
                     </div>
 
                     <div class="panel-body">
-                        @include('dashboard.soap_servers.partials.form', [
-                            'url' => route('soap-servers.store'),
+                        @include('dashboard.soap.servers.partials.form', [
+                            'url' => route('soap.servers.store'),
                             'model' => null
                         ])
                     </div>

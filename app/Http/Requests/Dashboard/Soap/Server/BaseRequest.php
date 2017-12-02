@@ -1,6 +1,6 @@
 <?php
 
-namespace SoapVersion\Http\Requests\Dashboard\SoapServers;
+namespace SoapVersion\Http\Requests\Dashboard\Soap\Server;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
