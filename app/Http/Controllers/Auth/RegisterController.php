@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
 use SoapVersion\Http\Controllers\Controller;
 use SoapVersion\Models\User\Group;
+use SoapVersion\Models\User\User;
 
 class RegisterController extends Controller
 {
@@ -54,7 +55,11 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function create(array $data)
+    /**
+     * @param array $data
+     * @return User
+     */
+    protected function create(array $data): User
     {
         $group = Group::create(['name' => $data['name']]);
 
