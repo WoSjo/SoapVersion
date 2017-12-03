@@ -1,16 +1,15 @@
 <?php
 
-namespace SoapVersion\Http\Controllers\Dashboard;
+namespace SoapVersion\Http\Controllers\Servers;
 
-use Form;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use SoapVersion\Http\Controllers\Controller;
 use SoapVersion\Http\Requests\Dashboard\Soap\Server\StoreRequest;
-use SoapVersion\Models\Dashboard\Soap\Server;
+use SoapVersion\Models\Server\Server;
+use SoapVersion\Models\User\Group;
 
-class SoapServersController extends Controller
+class ServerController extends Controller
 {
     const TRANSLATION_CHOICE = 1;
 
@@ -19,10 +18,10 @@ class SoapServersController extends Controller
      */
     public function index()
     {
-        $servers = Server::byUserId();
+        $servers = Server::activeUser()->get();
         $translationChoice = self::TRANSLATION_CHOICE;
 
-        return view('dashboard.servers.index', compact('servers', 'translationChoice'));
+        return view('servers.index', compact('servers', 'translationChoice'));
     }
 
     /**
@@ -32,14 +31,15 @@ class SoapServersController extends Controller
     {
         $translationChoice = self::TRANSLATION_CHOICE;
 
-        return view('dashboard.soap.servers.create', compact('translationChoice', 'formBuilder'));
+        return view('servers.create', compact('translationChoice', 'formBuilder'));
     }
 
     public function store(StoreRequest $request)
     {
-        $server = Auth::user()->soapServers()->create($request->all());
+        $group = Group::where('id', $request->group_id)->firstOrFail();
+        $server = $group->servers()->create($request->all());
 
-        return redirect()->route('soap.servers.index')
+        return redirect()->route('servers.index')
             ->with('success', __('utility.created', [
                 'type' => trans_choice('soap_server.soap server', self::TRANSLATION_CHOICE),
                 'identifier' => 'id',
@@ -53,7 +53,7 @@ class SoapServersController extends Controller
      */
     public function show(Server $soapServer)
     {
-        return view('dashboard.soap.servers.show', compact('soapServer'));
+        return view('servers.show', compact('soapServer'));
     }
 
     /**
@@ -62,7 +62,7 @@ class SoapServersController extends Controller
      */
     public function edit(Server $server)
     {
-        return view('dashboard.soap.servers.edit', compact('server'));
+        return view('servers.edit', compact('server'));
     }
 
     /**
@@ -74,7 +74,7 @@ class SoapServersController extends Controller
     {
         $server->update($request->all());
 
-        return redirect()->route('soap.servers.index')
+        return redirect()->route('servers.index')
             ->with('success', __('utility.updated', [
                 'type' => trans_choice('soap_server.soap server', self::TRANSLATION_CHOICE),
                 'identifier' => 'id',

@@ -1,14 +1,15 @@
 <?php
 
-namespace SoapVersion\Models;
+namespace SoapVersion\Models\User;
 
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use SoapVersion\Models\Dashboard\Soap\Server;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -32,10 +33,10 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return BelongsTo
      */
-    public function soapServers()
+    public function group(): BelongsTo
     {
-        return $this->hasMany(Server::class);
+        return $this->belongsTo(Group::class);
     }
 }
