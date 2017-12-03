@@ -2,7 +2,6 @@
 
 namespace SoapVersion\Providers;
 
-use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Sven\ArtisanView\ServiceProvider as ArtisanViewServiceProvider;
 

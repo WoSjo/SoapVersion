@@ -34,6 +34,10 @@ class ServerController extends Controller
         return view('servers.create', compact('translationChoice', 'formBuilder'));
     }
 
+    /**
+     * @param StoreRequest $request
+     * @return RedirectResponse
+     */
     public function store(StoreRequest $request)
     {
         $group = Group::where('id', $request->group_id)->firstOrFail();
@@ -82,6 +86,9 @@ class ServerController extends Controller
             ]));
     }
 
+    /**
+     * @param Server $soapServers
+     */
     public function destroy(Server $soapServers)
     {
         //

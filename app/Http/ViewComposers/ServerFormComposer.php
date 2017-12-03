@@ -15,6 +15,9 @@ class ServerFormComposer
     /** @var Collection */
     private $types;
 
+    /** @var Collection */
+    private $groups;
+
     public function __construct()
     {
         $this->types = Type::get(['id', 'name'])->pluck('name', 'id');
