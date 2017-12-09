@@ -52,12 +52,12 @@ class ServerController extends Controller
     }
 
     /**
-     * @param Server $soapServer
+     * @param Server $server
      * @return \Illuminate\View\View
      */
-    public function show(Server $soapServer)
+    public function show(Server $server)
     {
-        return view('servers.show', compact('soapServer'));
+        return view('servers.show', compact('server'));
     }
 
     /**
@@ -87,9 +87,9 @@ class ServerController extends Controller
     }
 
     /**
-     * @param Server $soapServers
+     * @param Server $server
      */
-    public function destroy(Server $soapServers)
+    public function destroy(Server $server)
     {
         //
     }

@@ -17,14 +17,4 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         View::composer('servers.partials.form', ServerFormComposer::class);
     }
-
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
-    }
 }

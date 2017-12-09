@@ -15,13 +15,10 @@ class CreateGroupServerTable extends Migration
     {
         Schema::create('group_server', function (Blueprint $table) {
             $table->increments('id');
-
             $table->integer('group_id')->unsigned();
             $table->integer('server_id')->unsigned();
-
             $table->foreign('group_id')->references('id')->on('groups');
             $table->foreign('server_id')->references('id')->on('servers');
-
             $table->timestamps();
         });
     }
