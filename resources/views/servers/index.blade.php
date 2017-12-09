@@ -24,7 +24,7 @@
                             ) }}
                         </span>
                         <span class="pull-right">
-                            <a href="{{ route('soap.servers.create') }}" class="btn btn-primary btn-xs">
+                            <a href="{{ route('servers.create') }}" class="btn btn-primary btn-xs">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             </a>
                         </span>
@@ -50,7 +50,7 @@
                                         <td>{{ $server->host }}</td>
                                         <td>{{ $server->port }}</td>
                                         <td>
-                                            <a href="{{ route('soap.servers.edit', $server) }}"
+                                            <a href="{{ route('servers.edit', $server) }}"
                                                class="btn btn-primary pull-right" role="button">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                             </a>

@@ -37,7 +37,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('home') }}">Home</a></li>
-                        <li><a href="{{ route('soap.servers.index') }}">Servers</a></li>
+                        <li><a href="{{ route('servers.index') }}">Servers</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

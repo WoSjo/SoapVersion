@@ -1,19 +1,25 @@
 <?php
 
-namespace SoapVersion\Models\Dashboard\Soap;
+namespace SoapVersion\Models\Server;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use SoapVersion\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
+use SoapVersion\Models\User\Group;
 
 class Server extends Model
 {
+    use SoftDeletes;
+
     /** @var array */
     protected $fillable = [
         'name',
         'slug',
         'host',
-        'port'
+        'port',
+        'type_id'
     ];
 
     /** @var array */
@@ -46,19 +52,31 @@ class Server extends Model
     }
 
     /**
-     * @param Builder $query
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return string
      */
-    public function scopeByUserId(Builder $query)
+    public function getSlugAttribute(): string
     {
-        return $query->has('user')->get();
+        return \str_slug($this->attributes['name']);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @param Builder $query
+     * @return Builder
      */
-    public function user()
+    public function scopeActiveUser(Builder $query)
     {
-        return $this->belongsTo(User::class);
+        return $query->whereHas('groups', function (Builder $builder) {
+            $builder->whereHas('users', function (Builder $userBuilder) {
+                $userBuilder->where('users.id', Auth::id());
+            });
+        });
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class);
     }
 }

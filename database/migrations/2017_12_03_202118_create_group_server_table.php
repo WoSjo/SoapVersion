@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateGroupServerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('group_server', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 100);
-            $table->string('email', 100)->unique();
-            $table->string('password', 60);
-            $table->rememberToken();
-            $table->softDeletes();
+            $table->integer('group_id')->unsigned();
+            $table->integer('server_id')->unsigned();
+            $table->foreign('group_id')->references('id')->on('groups');
+            $table->foreign('server_id')->references('id')->on('servers');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('group_server');
     }
 }

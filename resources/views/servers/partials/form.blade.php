@@ -2,30 +2,30 @@
 
 {{ $form->model($model, ['url' => $url, 'class' => 'form-horizontal', 'method' => $method ?? 'post']) }}
 @include('form-components.text', [
-    'type' => 'text',
     'name' => 'name',
-    'labelValue' => __('soap_server.name'),
-    'labelClasses' => 'col-sm-1 control-label',
-    'divClasses' => 'col-sm-11',
-    'inputClasses' => 'form-control'
+    'label' => __('soap_server.name'),
 ])
 
 @include('form-components.text', [
-    'type' => 'text',
     'name' => 'host',
-    'labelValue' => __('soap_server.host'),
-    'labelClasses' => 'col-sm-1 control-label',
-    'divClasses' => 'col-sm-11',
-    'inputClasses' => 'form-control'
+    'label' => __('soap_server.host'),
 ])
 
 @include('form-components.text', [
-    'type' => 'text',
     'name' => 'port',
-    'labelValue' => __('soap_server.port'),
-    'labelClasses' => 'col-sm-1 control-label',
-    'divClasses' => 'col-sm-11',
-    'inputClasses' => 'form-control'
+    'label' => __('soap_server.port'),
+])
+
+@include('form-components.select', [
+    'name' => 'type_id',
+    'label' => __('soap_server.type'),
+    'items' => $types
+])
+
+@include('form-components.select', [
+    'name' => 'group_id',
+    'label' => __('soap_server.group'),
+    'items' => $groups
 ])
 
 <div class="form-group">
