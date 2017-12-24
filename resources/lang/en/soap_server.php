@@ -6,5 +6,7 @@ return [
     'name' => 'name',
     'slug' => 'slug',
     'host' => 'host',
-    'port' => 'port'
+    'port' => 'port',
+    'type' => 'type',
+    'group' => 'group',
 ];
