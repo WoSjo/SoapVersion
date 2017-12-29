@@ -5,7 +5,7 @@ namespace SoapVersion\Http\Controllers\Servers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use SoapVersion\Http\Controllers\Controller;
-use SoapVersion\Http\Requests\Dashboard\Soap\Server\StoreRequest;
+use SoapVersion\Http\Requests\Server\StoreRequest;
 use SoapVersion\Models\Server\Server;
 use SoapVersion\Models\User\Group;
 

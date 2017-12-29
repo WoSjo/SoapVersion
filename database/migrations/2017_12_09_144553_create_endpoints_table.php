@@ -16,11 +16,13 @@ class CreateEndpointsTable extends Migration
         Schema::create('endpoints', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('server_id');
-            $table->string('url');
+            $table->string('function');
             $table->string('name');
             $table->text('data');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('server_id')->references('id')->on('servers');
         });
     }
 

@@ -4,7 +4,9 @@ namespace SoapVersion\Models\Server;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use SoapVersion\Models\User\Group;
@@ -77,6 +79,22 @@ class Server extends Model
      */
     public function groups(): BelongsToMany
     {
-        return $this->belongsToMany(Group::class);
+        return $this->belongsToMany(Group::class)->withTimestamps();
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function endpoints(): HasMany
+    {
+        return $this->hasMany(Endpoint::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(Type::class);
     }
 }

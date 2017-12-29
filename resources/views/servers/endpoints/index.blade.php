@@ -3,9 +3,9 @@
 @section('title',
     title_case(
         trans_choice(
-            'soap_server.soap server',
-            $servers->count() === 0 ? 1 : 2
-        ) . ' ' . __('soap_server.for account')
+            'endpoint.choice',
+            $endpoints->count() === 0 ? 1 : 2
+        ) . ' ' . __('endpoint.for server')
     )
 )
 
@@ -18,13 +18,13 @@
                         <span class="left">
                             {{ title_case(
                                 trans_choice(
-                                    'soap_server.soap server',
-                                    $servers->count()
-                                ) . ' ' . __('soap_server.for account')
+                                    'endpoint.choice',
+                                    $endpoints->count()
+                                ) . ' ' . __('endpoint.for server')
                             ) }}
                         </span>
                         <span class="pull-right">
-                            <a href="{{ route('servers.create') }}" class="btn btn-primary btn-xs">
+                            <a href="{{ route('servers.endpoints.create', $server) }}" class="btn btn-primary btn-xs">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             </a>
                         </span>
@@ -35,28 +35,21 @@
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>{{ title_case(__('soap_server.name')) }}</th>
-                                    <th>{{ title_case(__('soap_server.slug')) }}</th>
-                                    <th>{{ title_case(__('soap_server.host')) }}</th>
-                                    <th>{{ title_case(__('soap_server.port')) }}</th>
+                                    <th>{{ title_case(__('endpoint.function')) }}</th>
+                                    <th>{{ title_case(__('general.name')) }}</th>
+                                    <th>{{ title_case(__('general.data')) }}</th>
                                     <th>{{ title_case(__('utility.actions')) }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @forelse($servers as $server)
+                                @forelse($endpoints as $endpoint)
                                     <tr>
-                                        <td>{{ $server->name }}</td>
-                                        <td>{{ $server->slug }}</td>
-                                        <td>{{ $server->host }}</td>
-                                        <td>{{ $server->port }}</td>
+                                        <td>{{ $endpoint->function }}</td>
+                                        <td>{{ $endpoint->name }}</td>
+                                        <td>{{ $endpoint->data }}</td>
                                         <td>
                                             <div class="button-group pull-right">
-                                                <a href="{{ route('servers.endpoints.index', $server) }}"
-                                                   class="btn btn-primary" role="button">
-                                                    <span class="glyphicon glyphicon-list-alt"
-                                                          aria-hidden="true"></span>
-                                                </a>
-                                                <a href="{{ route('servers.edit', $server) }}"
+                                                <a href="{{ route('servers.endpoints.edit', [$server, $endpoint]) }}"
                                                    class="btn btn-primary" role="button">
                                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                                 </a>
@@ -65,7 +58,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5">{{ __('utility.no records found') }}</td>
+                                        <td colspan="4">{{ __('utility.no records found') }}</td>
                                     </tr>
                                 @endforelse
                                 </tbody>

@@ -11,11 +11,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['namespace' => 'Servers'], function () {
+Route::group(['middleware' => ['auth'], 'namespace' => 'Servers'], function () {
 
     Route::resource('servers', 'ServerController');
 
-    Route::group(['prefix' => '{serverId}'], function () {
+    Route::group(['prefix' => '{server}', 'as' => 'servers.'], function () {
         Route::resource('endpoints', 'EndpointController');
     });
 });

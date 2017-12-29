@@ -3,15 +3,15 @@
         'title',
         title_case(
             __('utility.new record', [
-                'type' => trans_choice('soap_server.soap server', 1)
+                'type' => trans_choice('endpoint.choice', 1)
             ])
         )
     )
 
-    @slot('route', route('servers.index'))
+    @slot('route', route('servers.endpoints.index', $server))
 
-    @include('servers.partials.form', [
-        'url' => route('servers.store'),
+    @include('servers.endpoints.partials.form', [
+        'url' => route('servers.endpoints.store', $server),
         'action' => 'create',
         'type' => 'new',
         'model' => null
