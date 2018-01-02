@@ -11,7 +11,7 @@
     @slot('route', route('servers.index'))
 
     @include('servers.partials.form', [
-        'url' => route('servers.store'),
+        'url' => route('servers.update', $server),
         'action' => 'update',
         'type' => 'existing',
         'model' => $server,

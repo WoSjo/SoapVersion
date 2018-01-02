@@ -43,7 +43,15 @@ class CreateNewDiffFromEndpoint extends Command
 
         $this->info(sprintf('Running for diff for endpoint with id `%s`', $endpointId));
 
-        dump($endpoint->server->type->getAttribute('name'));
+        if ($endpoint->server->type->getAttribute('name') !== 'soap') {
+            $this->warn('Can only run a soap endpoint at the moment');
+        }
+
+        try {
+            $soapClient = new \SoapClient($endpoint->server->host, []);
+        } catch (\Exception $exception) {
+            $this->error($exception->getMessage());
+        }
 
         $this->info('Finished creating diff.');
     }
