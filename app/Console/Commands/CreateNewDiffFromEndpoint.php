@@ -3,6 +3,7 @@
 namespace SoapVersion\Console\Commands;
 
 use Illuminate\Console\Command;
+use SoapClient;
 use SoapVersion\Models\Server\Endpoint;
 
 class CreateNewDiffFromEndpoint extends Command
@@ -48,7 +49,30 @@ class CreateNewDiffFromEndpoint extends Command
         }
 
         try {
-            $soapClient = new \SoapClient($endpoint->server->host, []);
+            $options = array(
+                'uri' => 'http://schemas.xmlsoap.org/soap/envelope/',
+                'style' => SOAP_RPC,
+                'use' => SOAP_ENCODED,
+                'soap_version' => SOAP_1_1,
+                'cache_wsdl' => WSDL_CACHE_NONE,
+                'connection_timeout' => 15,
+                'trace' => true,
+                'encoding' => 'UTF-8',
+                'exceptions' => true,
+            );
+
+            $functionName = $endpoint->getAttribute('function');
+            $functionData = $endpoint->getAttribute('data');
+            list($key, $value) = explode(':', $functionData);
+            $functionData = [];
+            $functionData[$key] = $value;
+
+            $soapClient = new SoapClient($endpoint->server->host, $options);
+            $result = $soapClient->__soapCall($functionName, [
+                $functionName => $functionData
+            ], null);
+
+
         } catch (\Exception $exception) {
             $this->error($exception->getMessage());
         }

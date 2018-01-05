@@ -8,7 +8,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Artisan;
-use SoapVersion\Console\Commands\CreateNewDiffFromEndpoint;
 use SoapVersion\Models\Server\Endpoint;
 
 class ProcessEndpoint implements ShouldQueue
@@ -35,7 +34,7 @@ class ProcessEndpoint implements ShouldQueue
      */
     public function handle()
     {
-        Artisan::call(CreateNewDiffFromEndpoint::class, [
+        Artisan::call('create:diff:endpoint', [
             'endpoint' => $this->endpoint->getAttribute('id')
         ]);
     }

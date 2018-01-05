@@ -47,7 +47,7 @@
                                     <tr>
                                         <td>{{ $server->name }}</td>
                                         <td>{{ $server->slug }}</td>
-                                        <td>{{ $server->host }}</td>
+                                        <td>{{ str_limit($server->host, 50) }}</td>
                                         <td>{{ $server->port }}</td>
                                         <td>
                                             <div class="button-group pull-right">

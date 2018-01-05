@@ -5,7 +5,6 @@ namespace SoapVersion\Http\Controllers\Servers;
 use Illuminate\Http\Request;
 use SoapVersion\Http\Controllers\Controller;
 use SoapVersion\Http\Requests\Server\Endpoint\BaseRequest;
-use SoapVersion\Jobs\Server\ProcessEndpoint;
 use SoapVersion\Models\Server\Endpoint;
 use SoapVersion\Models\Server\Server;
 
@@ -46,7 +45,7 @@ class EndpointController extends Controller
     {
         $endpoint = $server->endpoints()->create($request->all());
 
-        ProcessEndpoint::dispatch($endpoint);
+//        ProcessEndpoint::dispatch($endpoint);
 
         return redirect()->route('servers.endpoints.index', $server)
             ->with('success', __('utility.created', [
