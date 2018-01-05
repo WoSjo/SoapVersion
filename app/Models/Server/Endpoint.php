@@ -5,6 +5,8 @@ namespace SoapVersion\Models\Server;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use SoapVersion\Models\Version\Version;
 
 class Endpoint extends Model
 {
@@ -24,7 +26,6 @@ class Endpoint extends Model
     protected $casts = [
         'url' => 'string',
         'name' => 'string',
-//        'data' => '',
     ];
 
     /**
@@ -45,5 +46,13 @@ class Endpoint extends Model
     public function server()
     {
         return $this->belongsTo(Server::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function versions(): HasMany
+    {
+        return $this->hasMany(Version::class);
     }
 }
