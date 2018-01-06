@@ -36,7 +36,7 @@ class Endpoint extends Model
     public function scopeByServer(Builder $query, Server $server)
     {
         return $query->whereHas('server', function (Builder $builder) use ($server) {
-            $builder->where('servers.id', $server->id);
+            $builder->where('servers.id', $server->getAttribute('id'));
         });
     }
 

@@ -21,6 +21,7 @@ class Version extends Model
         'deleted_at',
     ];
 
+    /** @var array */
     protected $casts = [
         'compare' => 'boolean',
     ];

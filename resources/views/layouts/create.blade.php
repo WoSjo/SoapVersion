@@ -10,7 +10,7 @@
                     <div class="panel-heading">
                         <span class="left">
                             {{ title_case(
-                                __('utility.create') . ' ' .
+                                __('utility.'.$action) . ' ' .
                                 $title
                             ) }}
                         </span>

@@ -14,4 +14,7 @@ return [
     'no records found' => 'geen records gevonden',
 
     'update' => 'bewerk',
+
+    'yes' => 'ja',
+    'no' => 'nee',
 ];

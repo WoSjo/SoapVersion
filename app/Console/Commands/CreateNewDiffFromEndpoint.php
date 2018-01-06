@@ -78,13 +78,14 @@ class CreateNewDiffFromEndpoint extends Command
             $lastVersion = Version::byEndpoint($endpoint)->orderByDesc('created_at')->first();
 
             $version = $endpoint->versions()->create([
-                'compare' => true,
-                'endpoint_result' => serialize($result)
+                'compare' => $lastVersion !== null ? true : false,
+                'endpoint_result' => var_export($result, true),
             ]);
 
             if ($lastVersion !== null) {
                 $lastVersion->compareAbleVersion()->save($version);
             }
+
 
         } catch (\Exception $exception) {
             $this->error($exception->getMessage());

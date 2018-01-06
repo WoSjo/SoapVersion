@@ -8,6 +8,7 @@
         )
     )
 
+    @slot('action', 'create')
     @slot('route', route('servers.endpoints.index', $server))
 
     @include('servers.endpoints.partials.form', [

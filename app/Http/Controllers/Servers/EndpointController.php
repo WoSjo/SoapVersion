@@ -45,8 +45,6 @@ class EndpointController extends Controller
     {
         $endpoint = $server->endpoints()->create($request->all());
 
-//        ProcessEndpoint::dispatch($endpoint);
-
         return redirect()->route('servers.endpoints.index', $server)
             ->with('success', __('utility.created', [
                 'type' => trans_choice('endpoint.choice', 1),

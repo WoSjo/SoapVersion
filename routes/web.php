@@ -19,3 +19,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Servers'], function () {
         Route::resource('endpoints', 'EndpointController');
     });
 });
+
+Route::group(['prefix' => '{endpoint}', 'as' => 'endpoints.'], function () {
+    Route::resource('versions', 'VersionController');
+});
