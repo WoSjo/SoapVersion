@@ -16,14 +16,14 @@ class CreateVersionsTable extends Migration
         Schema::create('versions', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('endpoint_id');
-            $table->unsignedInteger('comparable_id')->nullable();
+            $table->unsignedInteger('version_id')->nullable();
             $table->boolean('compare')->default(true);
             $table->text('endpoint_result');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('endpoint_id')->references('id')->on('endpoints');
-            $table->foreign('comparable_id')->references('id')->on('versions');
+            $table->foreign('version_id')->references('id')->on('versions');
         });
     }
 

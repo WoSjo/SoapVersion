@@ -2,9 +2,10 @@
 
 namespace SoapVersion\Models\Version;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use SoapVersion\Models\Server\Endpoint;
 
 class Version extends Model
@@ -25,6 +26,18 @@ class Version extends Model
     ];
 
     /**
+     * @param Builder $query
+     * @param Endpoint $endpoint
+     * @return Builder
+     */
+    public function scopeByEndpoint(Builder $query, Endpoint $endpoint)
+    {
+        return $query->whereHas('endpoint', function (Builder $builder) use ($endpoint) {
+            $builder->where('endpoints.id', $endpoint->id);
+        });
+    }
+
+    /**
      * @return BelongsTo
      */
     public function endpoint(): BelongsTo
@@ -33,10 +46,10 @@ class Version extends Model
     }
 
     /**
-     * @return HasOne
+     * @return HasMany
      */
-    public function compareAbleVersion(): HasOne
+    public function compareAbleVersion(): HasMany
     {
-        return $this->hasOne(Version::class);
+        return $this->hasMany(Version::class);
     }
 }

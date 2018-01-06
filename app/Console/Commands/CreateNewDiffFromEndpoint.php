@@ -5,6 +5,7 @@ namespace SoapVersion\Console\Commands;
 use Illuminate\Console\Command;
 use SoapClient;
 use SoapVersion\Models\Server\Endpoint;
+use SoapVersion\Models\Version\Version;
 
 class CreateNewDiffFromEndpoint extends Command
 {
@@ -63,15 +64,27 @@ class CreateNewDiffFromEndpoint extends Command
 
             $functionName = $endpoint->getAttribute('function');
             $functionData = $endpoint->getAttribute('data');
+
             list($key, $value) = explode(':', $functionData);
-            $functionData = [];
-            $functionData[$key] = $value;
+
+            $dataArray = [];
+            $dataArray[$key] = $value;
 
             $soapClient = new SoapClient($endpoint->server->host, $options);
             $result = $soapClient->__soapCall($functionName, [
-                $functionName => $functionData
+                $functionName => $dataArray
             ], null);
 
+            $lastVersion = Version::byEndpoint($endpoint)->orderByDesc('created_at')->first();
+
+            $version = $endpoint->versions()->create([
+                'compare' => true,
+                'endpoint_result' => serialize($result)
+            ]);
+
+            if ($lastVersion !== null) {
+                $lastVersion->compareAbleVersion()->save($version);
+            }
 
         } catch (\Exception $exception) {
             $this->error($exception->getMessage());
