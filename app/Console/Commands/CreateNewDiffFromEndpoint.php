@@ -3,7 +3,11 @@
 namespace SoapVersion\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use SoapClient;
+use SoapVersion\Helpers\Diff\Checker;
+use SoapVersion\Mail\EndpointDifferenceFound;
 use SoapVersion\Models\Server\Endpoint;
 use SoapVersion\Models\Version\Version;
 
@@ -84,8 +88,24 @@ class CreateNewDiffFromEndpoint extends Command
 
             if ($lastVersion !== null) {
                 $lastVersion->compareAbleVersion()->save($version);
-            }
 
+                $diff = New Checker(
+                    $lastVersion->endpoint_result,
+                    $version->endpoint_result,
+                    Checker::HTML_INLINE_RENDERER,
+                    Checker::DEFAULT_RENDER_OPTIONS
+                );
+                $hasDifferences = $diff->hasDifferences();
+
+                Mail::to(Auth::user()->email)
+                    ->send(
+                        new EndpointDifferenceFound(
+                            $endpoint,
+                            $version,
+                            $diff->render()
+                        )
+                    );
+            }
 
         } catch (\Exception $exception) {
             $this->error($exception->getMessage());

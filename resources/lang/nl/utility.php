@@ -8,6 +8,8 @@ return [
 
     'existing' => 'bestaande :type',
 
+    'go back' => 'ga terug',
+
     'new' => 'nieuwe :type',
     'new record' => 'nieuw record voor :type',
 

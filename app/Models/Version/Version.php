@@ -5,6 +5,7 @@ namespace SoapVersion\Models\Version;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use SoapVersion\Models\Server\Endpoint;
 
 class Version extends Model
@@ -23,6 +24,11 @@ class Version extends Model
     /** @var array */
     protected $casts = [
         'compare' => 'boolean',
+    ];
+
+    /** @var array */
+    protected $with = [
+        'previousVersion'
     ];
 
     /**
@@ -46,10 +52,18 @@ class Version extends Model
     }
 
     /**
+     * @return HasOne
+     */
+    public function compareAbleVersion(): HasOne
+    {
+        return $this->hasOne(Version::class, 'version_id');
+    }
+
+    /**
      * @return BelongsTo
      */
-    public function compareAbleVersion(): BelongsTo
+    public function previousVersion(): BelongsTo
     {
-        return $this->belongsTo(Version::class);
+        return $this->belongsTo(Version::class, 'version_id');
     }
 }

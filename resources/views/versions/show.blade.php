@@ -20,7 +20,7 @@
                             {{ title_case(
                                 __('utility.view') . ' ' .
                                 trans_choice('version.choice', 1)
-                            ) }}
+                            ) }} {{ $version->id }}
                         </span>
                         <span class="pull-right">
                             <a href="{{ route('endpoints.versions.index', $endpoint) }}" class="btn btn-primary btn-xs">
@@ -28,18 +28,16 @@
                             </a>
                         </span>
                     </div>
-
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h3 class="text-center">{{ title_case(trans_choice('version.choice', 1)) }} {{ $version->id }}</h3>
-                                {{ $diffRenderer }}
-                            </div>
-                            <div class="col-sm-6">
-                                <h3 class="text-center">{{ title_case(trans_choice('version.choice', 1)) }} {{ $version->version_id }}</h3>
-
-                            </div>
-                        </div>
+                        <a href="{{ route('endpoints.versions.mail', [$endpoint, $version]) }}">View mail</a>
+                        @if ($hasDifferences)
+                            {!! $diffRenderer !!}
+                        @else
+                            <p>{{ ucfirst(__('version.no differences have been found')) }}.</p>
+                            <p>
+                                <a href="{{ route('endpoints.versions.index', $endpoint) }}">{{ title_case(__('utility.go back')) }}</a>.
+                            </p>
+                        @endif
                     </div>
                 </div>
             </div>
