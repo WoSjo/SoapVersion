@@ -49,6 +49,12 @@
                                         <td>{{ $endpoint->data }}</td>
                                         <td>
                                             <div class="button-group pull-right">
+                                                <a href="{{ route('endpoints.versions.index', $endpoint) }}"
+                                                   class="btn btn-primary" role="button">
+                                                    <span class="glyphicon glyphicon-list-alt"
+                                                          aria-hidden="true"></span>
+                                                </a>
+
                                                 <a href="{{ route('servers.endpoints.edit', [$server, $endpoint]) }}"
                                                    class="btn btn-primary" role="button">
                                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>

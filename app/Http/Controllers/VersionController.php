@@ -2,6 +2,8 @@
 
 namespace SoapVersion\Http\Controllers;
 
+use Diff;
+use Diff_Renderer_Html_SideBySide;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use SoapVersion\Jobs\Server\ProcessEndpoint;
@@ -10,6 +12,19 @@ use SoapVersion\Models\Version\Version;
 
 class VersionController extends Controller
 {
+    /**
+     * @var Diff_Renderer_Html_SideBySide
+     */
+    private $diffRenderer;
+
+    /**
+     * @param Diff_Renderer_Html_SideBySide $diffRenderer
+     */
+    public function __construct(Diff_Renderer_Html_SideBySide $diffRenderer)
+    {
+        $this->diffRenderer = $diffRenderer;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -70,7 +85,20 @@ class VersionController extends Controller
      */
     public function show(Endpoint $endpoint, Version $version)
     {
-        return view('versions.show', compact('endpoint', 'version'));
+        dd($version->compareAbleVersion()->first());
+
+        $diff = new Diff(
+            $version->endpoint_result,
+            $version->compareAbleVersion->endpoint_result,
+            [
+                'ignoreWhitespace' => true,
+                'ignoreCase' => true,
+            ]
+        );
+
+        $diffRenderer = $diff->render($this->diffRenderer);
+
+        return view('versions.show', compact('endpoint', 'version', 'diffRenderer'));
     }
 
     /**

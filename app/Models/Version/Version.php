@@ -5,7 +5,6 @@ namespace SoapVersion\Models\Version;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use SoapVersion\Models\Server\Endpoint;
 
 class Version extends Model
@@ -47,10 +46,10 @@ class Version extends Model
     }
 
     /**
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function compareAbleVersion(): HasMany
+    public function compareAbleVersion(): BelongsTo
     {
-        return $this->hasMany(Version::class);
+        return $this->belongsTo(Version::class);
     }
 }

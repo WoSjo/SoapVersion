@@ -15,6 +15,7 @@
         'url' => route('endpoints.versions.store', $endpoint),
         'action' => 'create',
         'type' => 'new',
-        'model' => null
+        'model' => null,
+        'selected' => $endpoint->id,
     ])
 @endcomponent

@@ -14,6 +14,9 @@ return [
     'no records found' => 'geen records gevonden',
 
     'update' => 'bewerk',
+    'updated' => ':type met :identifier :value is succesvol bewerkt',
+
+    'view' => 'bekijk',
 
     'yes' => 'ja',
     'no' => 'nee',

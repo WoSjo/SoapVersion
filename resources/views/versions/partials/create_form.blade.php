@@ -2,7 +2,8 @@
 @include('form-components.select', [
     'name' => 'endpoint_id',
     'label' => trans_choice('endpoint.choice', 1),
-    'items' => $endpoints
+    'items' => $endpoints,
+    'selected' => $selected ?? null
 ])
 
 <div class="form-group">

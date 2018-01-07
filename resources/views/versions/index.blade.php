@@ -37,6 +37,11 @@
             <td>{{ str_limit($version->endpoint_result, 50) }}</td>
             <td>
                 <div class="button-group pull-right">
+                    <a href="{{ route('endpoints.versions.show', [$endpoint, $version->id]) }}"
+                       class="btn btn-primary" role="button">
+                        <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                    </a>
+
                     <a href="{{ route('endpoints.versions.edit', [$endpoint, $version->id]) }}"
                        class="btn btn-primary" role="button">
                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
