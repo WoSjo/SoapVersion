@@ -51,7 +51,7 @@
         </tr>
     @empty
         <tr>
-            <td colspan="4">{{ __('utility.no records found') }}</td>
+            <td colspan="5">{{ __('utility.no records found') }}</td>
         </tr>
     @endforelse
 

@@ -44,6 +44,12 @@ class Checker
         $this->setNewVersion($newVersion);
         $this->setRenderer($renderer);
         $this->setRenderOptions($renderOptions);
+
+        $this->diff = new Diff(
+            $this->oldVersion,
+            $this->newVersion,
+            $this->renderOptions
+        );
     }
 
     /**
@@ -83,12 +89,6 @@ class Checker
      */
     public function render()
     {
-        $this->diff = new Diff(
-            $this->oldVersion,
-            $this->newVersion,
-            $this->renderOptions
-        );
-
         return $this->diff->render($this->renderer);
     }
 

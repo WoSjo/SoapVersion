@@ -29,7 +29,6 @@
                         </span>
                     </div>
                     <div class="panel-body">
-                        <a href="{{ route('endpoints.versions.mail', [$endpoint, $version]) }}">View mail</a>
                         @if ($hasDifferences)
                             {!! $diffRenderer !!}
                         @else

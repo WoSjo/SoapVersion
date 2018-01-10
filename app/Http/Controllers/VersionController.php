@@ -21,7 +21,7 @@ class VersionController extends Controller
     {
         $versions = Version::byEndpoint($endpoint)
             ->with(['endpoint.server', 'compareAbleVersion'])
-            ->orderByDesc('created_at')
+            ->orderByDesc('id')
             ->get();
 
         return view('versions.index', compact('versions', 'endpoint'));

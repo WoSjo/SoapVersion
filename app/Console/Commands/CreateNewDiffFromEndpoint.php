@@ -2,6 +2,7 @@
 
 namespace SoapVersion\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -9,6 +10,7 @@ use SoapClient;
 use SoapVersion\Helpers\Diff\Checker;
 use SoapVersion\Mail\EndpointDifferenceFound;
 use SoapVersion\Models\Server\Endpoint;
+use SoapVersion\Models\User\User;
 use SoapVersion\Models\Version\Version;
 
 class CreateNewDiffFromEndpoint extends Command
@@ -18,7 +20,9 @@ class CreateNewDiffFromEndpoint extends Command
      *
      * @var string
      */
-    protected $signature = 'create:diff:endpoint {endpoint : The id of the endpoint}';
+    protected $signature = 'create:diff:endpoint 
+        {endpoint : The id of the endpoint} 
+        {user? : The id of the user which should recieve this mail}';
 
     /**
      * The console command description.
@@ -79,35 +83,51 @@ class CreateNewDiffFromEndpoint extends Command
                 $functionName => $dataArray
             ], null);
 
-            $lastVersion = Version::byEndpoint($endpoint)->orderByDesc('created_at')->first();
+            $lastVersion = Version::byEndpoint($endpoint)
+                ->latest('id')
+                ->first();
+
+            if (null === $lastVersion) {
+                $lastVersion = $endpoint->versions()->firstOrCreate([
+                    'compare' => false,
+                    'endpoint_result' => ''
+                ]);
+            }
 
             $version = $endpoint->versions()->create([
                 'compare' => $lastVersion !== null ? true : false,
                 'endpoint_result' => var_export($result, true),
             ]);
+            $version->previousVersion()->associate($lastVersion)->save();
 
-            if ($lastVersion !== null) {
-                $lastVersion->compareAbleVersion()->save($version);
+            $diff = new Checker(
+                $lastVersion->endpoint_result,
+                $version->endpoint_result,
+                Checker::HTML_INLINE_RENDERER,
+                Checker::DEFAULT_RENDER_OPTIONS
+            );
 
-                $diff = New Checker(
-                    $lastVersion->endpoint_result,
-                    $version->endpoint_result,
-                    Checker::HTML_INLINE_RENDERER,
-                    Checker::DEFAULT_RENDER_OPTIONS
-                );
-                $hasDifferences = $diff->hasDifferences();
+            $hasDifferences = $diff->hasDifferences();
 
-                Mail::to(Auth::user()->email)
-                    ->send(
-                        new EndpointDifferenceFound(
-                            $endpoint,
-                            $version,
-                            $diff->render()
-                        )
-                    );
+            $user = Auth::user();
+
+            if ($this->argument('user')) {
+                $user = User::findOrFail($this->argument('user'));
             }
 
-        } catch (\Exception $exception) {
+            Mail::to($user->email)
+                ->send(
+                    new EndpointDifferenceFound(
+                        $endpoint,
+                        $version,
+                        $diff->render(),
+                        $hasDifferences
+                    )
+                );
+
+            $this->info('Mail has been sent to : ' . $user->email);
+
+        } catch (Exception $exception) {
             $this->error($exception->getMessage());
         }
 
