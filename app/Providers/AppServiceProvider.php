@@ -2,6 +2,7 @@
 
 namespace SoapVersion\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use SoapVersion\Parsers\Parser;
 use SoapVersion\Parsers\ParserInterface;
@@ -26,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        Schema::defaultStringLength(191);
+        
         if ($this->app->environment() !== 'production') {
             $this->app->register(ArtisanViewServiceProvider::class);
         }
