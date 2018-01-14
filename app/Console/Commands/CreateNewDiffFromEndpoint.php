@@ -48,8 +48,9 @@ class CreateNewDiffFromEndpoint extends Command
      */
     public function handle()
     {
+
         $endpointId = $this->argument('endpoint');
-        $endpoint = Endpoint::with('server.type')->find($endpointId);
+        $endpoint = Endpoint::with(['server.groups.users', 'server.type'])->find($endpointId);
 
         $this->info(sprintf('Running for diff for endpoint with id `%s`', $endpointId));
 
@@ -107,25 +108,29 @@ class CreateNewDiffFromEndpoint extends Command
                 Checker::DEFAULT_RENDER_OPTIONS
             );
 
-            $hasDifferences = $diff->hasDifferences();
-
-            $user = Auth::user();
+            $emailToSendTo = $endpoint->server->groups->first()->users->map(function ($user) {
+                return $user->email;
+            })->toArray();
 
             if ($this->argument('user')) {
                 $user = User::findOrFail($this->argument('user'));
+
+                $emailToSendTo = [
+                    $user->email
+                ];
             }
 
-            Mail::to($user->email)
+            Mail::to($emailToSendTo)
                 ->send(
                     new EndpointDifferenceFound(
                         $endpoint,
                         $version,
                         $diff->render(),
-                        $hasDifferences
+                        $diff->hasDifferences()
                     )
                 );
 
-            $this->info('Mail has been sent to : ' . $user->email);
+            $this->info('Mail has been sent to the following mails : ' . implode(',', $emailToSendTo));
 
         } catch (Exception $exception) {
             $this->error($exception->getMessage());
