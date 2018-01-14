@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use SoapVersion\Models\Server\Endpoint;
 
 class CreateEndpointsTable extends Migration
 {
@@ -19,6 +20,8 @@ class CreateEndpointsTable extends Migration
             $table->string('function');
             $table->string('name');
             $table->text('data');
+            $table->integer('run')->default(Endpoint::DAILY);
+            $table->integer('run_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

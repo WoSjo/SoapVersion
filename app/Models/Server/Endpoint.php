@@ -10,6 +10,24 @@ use SoapVersion\Models\Version\Version;
 
 class Endpoint extends Model
 {
+    const WEEKLY = 1;
+    const TWICE_DAILY = 2;
+    const DAILY_AT = 3;
+    const DAILY = 4;
+    const HOURLY = 5;
+    const EVERY_FIFTEEN_MINUTES = 6;
+    const EVERY_MINUTE = 7;
+
+    const RUN_AT = [
+        self::HOURLY,
+        self::DAILY,
+        self::DAILY_AT,
+        self::TWICE_DAILY,
+        self::WEEKLY,
+        self::EVERY_FIFTEEN_MINUTES,
+        self::EVERY_MINUTE,
+    ];
+
     /** @var array */
     protected $fillable = [
         'function',
