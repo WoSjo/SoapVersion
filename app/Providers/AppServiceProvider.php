@@ -10,6 +10,8 @@ use Sven\ArtisanView\ServiceProvider as ArtisanViewServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    const DEFAULT_STRING_LENGTH = 191;
+
     /**
      * Bootstrap any application services.
      *
@@ -27,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Schema::defaultStringLength(191);
+        Schema::defaultStringLength(self::DEFAULT_STRING_LENGTH);
         
         if ($this->app->environment() !== 'production') {
             $this->app->register(ArtisanViewServiceProvider::class);
